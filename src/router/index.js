@@ -2,16 +2,20 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
 
+import NavBar from '../layouts/NavBar.vue'
+
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Daily from '../views/Daily.vue'
+
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Login',
-    components: {default:Login}
+    name: 'Daily',
+    components: {default:Daily, header:NavBar}
   },
   {
     path: '/login',

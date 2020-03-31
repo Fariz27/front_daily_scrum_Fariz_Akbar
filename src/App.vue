@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="container-scroller">
+      <router-view name="header"/>
       <router-view/>
     </div>
   </div>
