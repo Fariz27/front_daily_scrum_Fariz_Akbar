@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import store from '../store'
 
 import Login from '../views/Login.vue'
-import About from '../views/About.vue'
+import Register from '../views/Register.vue'
 
 Vue.use(VueRouter)
 
@@ -14,12 +14,14 @@ const routes = [
     components: {default:Login}
   },
   {
-    path: '/About',
-    name: 'About',
-    components: {default:About},
-    meta: { 
-      requiresAuth: true
-    }
+    path: '/login',
+    name: 'Login',
+    components: {default:Login}
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    components: {default:Register}
   },
 ]
 

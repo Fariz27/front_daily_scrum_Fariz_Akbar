@@ -7,7 +7,7 @@
             <img src="assets/img/flat.png" width="100%" />
           </div>
           <div class="col-lg-5 mx-auto">
-            <div class="auth-form-light text-left p-5">
+            <div class="auth-form-light text-left p-5" style="background-color:#f7f7f7">
               <div class="navbar-brand brand-logo">
                 <img src="assets/img/logo.png" />
               </div>
@@ -61,7 +61,7 @@
                   <input
                     class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
                     value="LOGOUT"
-                    v-on:click="LOGOUT"
+                    v-on:click="logout"
                   />
                 </div>
               </form>
@@ -91,6 +91,24 @@ export default {
         console.log("berhasil");
         })
       .catch(err => console.log(err))
+    },
+    logout(){
+      let conf = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+      };
+      let form = new FormData();
+      this.axios
+        .post("/logout", form, conf)
+        .then(response => {
+          if (response.data.logged === false || response.data.status === 0) {
+            this.$store.commit("logout");
+            localStorage.removeItem("Authorization");
+            this.$router.push({ name: "login" });
+          }
+        })
+        .catch(error => {});
     }
   },
   mounted(){

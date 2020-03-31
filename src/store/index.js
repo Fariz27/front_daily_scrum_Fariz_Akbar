@@ -59,7 +59,7 @@ export default new Vuex.Store({
 		register({ commit }, user) {
 			return new Promise((resolve, reject) => {
 				commit('auth_request')
-				axios({ url: 'http://localhost:8000/register', data: user, method: 'POST' })
+				axios({ url: '/register', data: user, method: 'POST' })
 					.then(response => {
 						const token = response.data.token
 						const logged = response.data.logged
