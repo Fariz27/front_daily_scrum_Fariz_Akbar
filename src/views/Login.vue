@@ -2,6 +2,28 @@
   <div class="container-fluid page-body-wrapper full-page-wrapper">
     <div class="main-panel" style="background-color:white">
       <div class="content-wrapper d-flex align-items-center auth">
+        <div v-if="loading" class="loading">
+          <div class="row">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-secondary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-danger" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-warning" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-info" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
         <div class="row w-100" style="background-color:white">
           <div class="col-lg-5 mx-auto">
             <img src="assets/img/flat.png" width="100%" />
@@ -61,7 +83,6 @@
                   <input
                     class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
                     value="LOGOUT"
-                    v-on:click="logout"
                   />
                 </div>
               </form>
@@ -75,44 +96,33 @@
 </template>
 <script>
 export default {
-  data(){
-    return{
-      email:"",
-      password:"",
-      message:"",
-    }
+  data() {
+    return {
+      email: "",
+      password: "",
+      message: "",
+      loading:false,
+    };
   },
-  methods:{
-    login(){
-      let email = this.email 
-      let password = this.password
-      this.$store.dispatch('login', { email, password })
-      .then(response => {
-        console.log("berhasil");
-        })
-      .catch(err => console.log(err))
-    },
-    logout(){
-      let conf = {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("Authorization")
-        }
-      };
-      let form = new FormData();
-      this.axios
-        .post("/logout", form, conf)
+  methods: {
+    login() {
+      this.loading = true;
+      let email = this.email;
+      let password = this.password;
+      this.$store
+        .dispatch("login", { email, password })
         .then(response => {
-          if (response.data.logged === false || response.data.status === 0) {
-            this.$store.commit("logout");
-            localStorage.removeItem("Authorization");
-            this.$router.push({ name: "login" });
-          }
+          console.log("berhasil");
+          this.$router.push({ path: "/" });
         })
-        .catch(error => {});
+        console.log("Login Gagal");
+        this.loading = false;
+    },
+  },  
+  mounted() {
+    if(!localStorage.getItem("Authorization")==null){
+      this.$router.push({ path: "/" });
     }
-  },
-  mounted(){
-
   }
-}
+};
 </script>

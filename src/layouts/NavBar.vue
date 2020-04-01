@@ -28,7 +28,8 @@
                   class="dropdown-menu dropdown-menu-right navbar-dropdown"
                   aria-labelledby="profileDropdown"
                 >
-                  <a class="dropdown-item">
+                  <a class="dropdown-item"
+                  v-on:click="logout">
                     <i class="mdi mdi-logout text-primary"></i>
                     Logout
                   </a>
@@ -49,6 +50,12 @@
     <nav class="bottom-navbar">
       <div class="container">
         <ul class="nav page-navigation">
+          <li class="nav-item" v-bind:class="{ active: isActive }">
+            <a class="nav-link" href="input_daily_scrum.html">
+              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              <span class="menu-title">Today</span>
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="input_daily_scrum.html">
               <i class="mdi mdi-format-list-bulleted menu-icon"></i>
@@ -57,6 +64,36 @@
           </li>
         </ul>
       </div>
-    </nav>
+    </nav>  
   </div>
 </template>
+<script>
+export default {
+    data(){
+        return{
+            isActive:true,
+
+        }
+    },
+    methods:{
+        logout() {
+      let conf = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("Authorization")
+        }
+      };
+      let form = new FormData();
+      this.axios
+        .post("/logout", form, conf)
+        .then(response => {
+          if (response.data.logged === false || response.data.status === 0) {
+            this.$store.commit("logout");
+            localStorage.removeItem("Authorization");
+            this.$router.push({ path: "/login" });
+          }
+        })
+        .catch(error => {});
+    }
+    }
+}
+</script>

@@ -4,9 +4,26 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-
-Vue.use(VueAxios, axios)
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(VueAxios,  axios)
+// Install BootstrapVue
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
 Vue.config.productionTip = false
+
+const moment = require('moment')
+require('moment/locale/id')
+Vue.use(require('vue-moment'),{moment});
+
+
+Vue.filter('capitalize', function (value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.charAt(0).toUpperCase() + value.slice(1)
+})
 
 axios.defaults.baseURL = 'http://localhost:8000/api'
 const token = localStorage.getItem('Authorization')

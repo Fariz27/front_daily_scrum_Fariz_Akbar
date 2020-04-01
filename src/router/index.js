@@ -15,7 +15,11 @@ const routes = [
   {
     path: '/',
     name: 'Daily',
-    components: {default:Daily, header:NavBar}
+    components: {default:Daily, header:NavBar},
+    meta: { 
+      requiresAuth: true
+    }
+    
   },
   {
     path: '/login',

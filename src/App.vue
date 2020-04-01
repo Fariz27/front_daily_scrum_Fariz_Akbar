@@ -11,7 +11,7 @@
 export default {
   data(){
     return{
-      status_login: ''
+      status_login: '',
     }
   }
 }
