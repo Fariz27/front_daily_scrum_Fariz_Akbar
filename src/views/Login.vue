@@ -82,7 +82,7 @@
                 <div class="my-3">
                   <input
                     class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                    value="LOGOUT"
+                    value="REGISTER"
                   />
                 </div>
               </form>

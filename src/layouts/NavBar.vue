@@ -50,14 +50,14 @@
     <nav class="bottom-navbar">
       <div class="container">
         <ul class="nav page-navigation">
-          <li class="nav-item" v-bind:class="{ active: isActive }">
-            <a class="nav-link" href="input_daily_scrum.html">
+          <li class="nav-item" v-bind:class="{ active: isDaily }">
+            <a class="nav-link" href="/">
               <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               <span class="menu-title">Today</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="input_daily_scrum.html">
+          <li class="nav-item" v-bind:class="{ active: isAll }">
+            <a class="nav-link" href="/all">
               <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               <span class="menu-title">My Daily Scrum</span>
             </a>
@@ -72,6 +72,8 @@ export default {
     data(){
         return{
             isActive:true,
+            isDaily:false,
+            isAll:false
 
         }
     },
@@ -94,6 +96,16 @@ export default {
         })
         .catch(error => {});
     }
+    },
+    mounted(){
+      if(this.$route.name == "Daily"){
+        this.isDaily = true;
+        this.isAll = false;
+      }
+      if(this.$route.name == "AllDaily"){
+        this.isAll = true;
+        this.isDaily = false;
+      }
     }
 }
 </script>

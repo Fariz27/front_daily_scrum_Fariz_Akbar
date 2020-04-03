@@ -7,6 +7,8 @@ import NavBar from '../layouts/NavBar.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Daily from '../views/Daily.vue'
+import AllDaily from '../views/AllDaily.vue'
+
 
 
 Vue.use(VueRouter)
@@ -16,6 +18,15 @@ const routes = [
     path: '/',
     name: 'Daily',
     components: {default:Daily, header:NavBar},
+    meta: { 
+      requiresAuth: true
+    }
+    
+  },
+  {
+    path: '/all',
+    name: 'AllDaily',
+    components: {default:AllDaily, header:NavBar},
     meta: { 
       requiresAuth: true
     }

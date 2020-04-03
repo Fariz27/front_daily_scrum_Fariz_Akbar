@@ -173,37 +173,10 @@
                   </div>
                 </div>
                 <div v-if="!status == 0" class="row" style="margin-top:50px;">
-                  <div class="col-md-3 offset-md-1" v-for="(scrum, index) in daily" :key="scrum.id">
+                  <div class="col-md-3 offset-md-1" style="margin-bottom:25px" v-for="(scrum) in daily" :key="scrum.id">
                     <div class="card" style="width: 18rem;">
                       <div
-                        v-if="index == 0"
-                        class="card-body bg-success text-light"
-                        style="padding-bottom:15px"
-                      >
-                        <h4
-                          class="card-title text-light font-weight-bold"
-                          style="font-size:2rem;margin-bottom:5px"
-                        >{{scrum.created_at | moment("dddd")}}</h4>
-                        <p style="margin:0">{{scrum.created_at | moment("Do MMMM YYYY")}}</p>
-                        <br />
-                        <h4 style="margin:0;">{{scrum.team | change | capitalize}}</h4>
-                      </div>
-                      <div
-                        v-if="index == 1"
-                        class="card-body bg-primary text-light"
-                        style="padding-bottom:15px"
-                      >
-                        <h4
-                          class="card-title text-light font-weight-bold"
-                          style="font-size:2rem;margin-bottom:5px"
-                        >{{scrum.created_at | moment("dddd")}}</h4>
-                        <p style="margin:0">{{scrum.created_at | moment("Do MMMM YYYY")}}</p>
-                        <br />
-                        <h4 style="margin:0;">{{scrum.team | change | capitalize}}</h4>
-                      </div>
-                      <div
-                        v-if="index == 2"
-                        class="card-body bg-warning text-light"
+                        class="card-body bg-info text-light"
                         style="padding-bottom:15px"
                       >
                         <h4
@@ -247,9 +220,8 @@
                         <a
                           href="#"
                           class="card-link text-danger"
-                          v-on:click="Drop(scrum.id)"
                         >
-                          <span class="material-icons">delete_forever</span>
+                          <span class="material-icons" v-on:click="Drop(scrum.id)">delete_forever</span>
                         </a>
                       </div>
                     </div>
@@ -423,7 +395,7 @@ export default {
         .then(response => {
           this.id = response.data.user.id;
           this.axios
-            .get("/daily", conf)
+            .get("/scrum/"+ this.perPage + "/" + offset, conf)
             .then(response => {
               this.status = response.data.status;
               if (response.data.status == 1) {
